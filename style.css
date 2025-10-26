@@ -7,8 +7,11 @@
 
 /* Base page styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f1f1f1;
+  /* Primary: Helvetica. Fallback: Garamond, then generic serif. */
+  font-family: Helvetica, Garamond, serif;
+  /* night-sky gradient for a NASA-like look + star canvas on top */
+  background: radial-gradient(ellipse at bottom, #081226 0%, #000814 60%, #000000 100%);
+  color: #fff;
   padding: 20px;
 }
 
@@ -16,6 +19,23 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* ensure content sits above the starfield canvas */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* When the page is in its initial state (no gallery yet),
+   center all main content vertically and horizontally. */
+.container.centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 40px); /* account for body padding */
+  text-align: center;
 }
 
 /* Header */
@@ -29,15 +49,24 @@ body {
 }
 
 h1 {
-  font-family: Verdana, sans-serif;
+  /* Keep heading styling but use the page font stack */
+  font-family: Helvetica, Garamond, serif;
   font-weight: bold;
-  color: #212121;
+  color: #ffffff; /* header text should be white */
 }
 
 /* Logo */
 .logo {
-  width: 140px;
+  width: 90px;
   margin-right: 15px;
+}
+
+/* Make placeholder logo image smaller and responsive */
+.placeholder-icon img {
+  max-width: 140px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
 }
 
 /* Date‐picker & button row */
@@ -53,7 +82,8 @@ h1 {
 /* Inputs and buttons */
 input[type="date"],
 button {
-  font-family: Arial, sans-serif;
+  /* match the page font stack for form controls */
+  font-family: Helvetica, Garamond, serif;
   font-weight: normal;
   color: #666;
   padding: 10px 15px;
@@ -66,12 +96,13 @@ button {
 
 /* Button specific */
 button {
-  background-color: #d3d3d3;
-  color: black;
+  background-color: #dd361c; /* primary action color */
+  color: #ffffff;
   cursor: pointer;
+  border-color: rgba(0,0,0,0.08);
 }
 button:hover {
-  background-color: #bfbfbf;
+  background-color: #c32f16;
 }
 
 /* Stack horizontally on wider screens */
@@ -101,13 +132,14 @@ button:hover {
   flex: 1 1 100%;  /* full width by default */
   min-width: 280px;
   max-width: 500px;
-  background: white;
+  background: #e4e2e0;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  color: #000;
 }
 
 /* Three columns on wider screens */
@@ -124,10 +156,67 @@ button:hover {
   border-radius: 4px;
 }
 
+/* Hover/interactive effect: smooth scale + subtle lift */
+.gallery-item {
+  position: relative;
+  transition: transform 280ms ease, box-shadow 280ms ease;
+}
+
+.gallery-item img {
+  transition: transform 280ms ease;
+  will-change: transform;
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.14);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Video badge centered over thumbnails */
+.video-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  pointer-events: none; /* allow clicks to pass through to card */
+}
+
+.video-badge::after {
+  content: '';
+  display: inline-block;
+  margin-left: 4px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid #fff;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+}
+
 .gallery-item p {
   margin-top: 10px;
   padding: 5px;
   font-size: 14px;
+}
+
+.gallery-item h3 {
+  color: #000;
+}
+
+.gallery-item p {
+  color: #000;
 }
 
 /* Placeholder content */
@@ -138,7 +227,130 @@ button:hover {
   color: #666;
 }
 
+/* Make the placeholder paragraph text black for better contrast */
+.placeholder p {
+  color: #fff;
+  font-weight: bold;
+}
+
 .placeholder-icon {
   font-size: 48px;
   margin-bottom: 20px;
+}
+
+/* Did You Know section: center the fact text when visible
+   Stack the heading above the fact (column layout) and add a small gap */
+#did-you-know {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 20px;
+  margin: 20px auto;
+  width: 100%;
+}
+
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  inset: 0; /* top:0; right:0; bottom:0; left:0 */
+  background: rgba(0,0,0,0.6);
+  display: none; /* toggled via JS */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Full-screen canvas used for the animated starfield */
+#starfield {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* sit behind content */
+  pointer-events: none; /* not interactive */
+  display: block;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal {
+  width: 100%;
+  max-width: 900px;
+  background: #e4e2e0;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow: auto;
+  color: #000; /* ensure modal text is black */
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  color: #000;
+}
+
+.modal-body {
+  padding: 16px;
+}
+
+.modal img {
+  width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 4px;
+  background: #000;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #000;
+}
+
+.modal .meta {
+  color: #000;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.modal .explanation {
+  margin-top: 12px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+.modal-close {
+  color: #000; /* ensure the X is black for contrast */
+}
+.modal-close:hover,
+.modal-close:focus {
+  color: #222;
+  outline: none;
+}
+
+/* Visible focus ring for keyboard users */
+.modal-close:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(11,102,195,0.35);
+  border-radius: 4px;
+}
+
+.modal a.modal-link {
+  color: #0b66c3;
 }
