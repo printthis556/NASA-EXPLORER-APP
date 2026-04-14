@@ -18,3 +18,7 @@ When possible, include:
 ## Scope
 
 This policy covers the project files and the public web app content used by the repository.
+
+## Cryptography
+
+This project does not implement custom cryptographic protocols or algorithms. By default, any network communication uses the browser's built-in HTTPS/TLS stack rather than project-defined cryptography.

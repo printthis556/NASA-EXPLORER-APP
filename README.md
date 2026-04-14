@@ -109,6 +109,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and project
 
 See [SECURITY.md](SECURITY.md) for the private reporting process.
 
+This project does not implement custom cryptographic protocols or algorithms. When it fetches data, it relies on the browser's built-in HTTPS/TLS handling.
+
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for the full text.
