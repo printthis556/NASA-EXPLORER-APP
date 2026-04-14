@@ -1,9 +1,13 @@
 # NASA Space Explorer
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/printthis556/NASA-EXPLORER-APP/badge)](https://scorecard.dev/viewer/?uri=github.com/printthis556/NASA-EXPLORER-APP)
-[OpenSSF Best Practices Badge]
+[![OpenSSF Scorecard](https://img.shields.io/badge/OpenSSF-Scorecard-blue)](https://scorecard.dev/)
+[![OpenSSF Best Practices](https://img.shields.io/badge/OpenSSF-Best%20Practices-blue)](https://bestpractices.coreinfrastructure.org/)
 
-NASA Space Explorer is a front-end web app that showcases space media inspired by NASA's Astronomy Picture of the Day (APOD). It pulls APOD-style JSON data, renders a responsive gallery of images and videos, and opens each item in a detail modal for a richer viewing experience.
+NASA Space Explorer is a front-end web app that helps people browse space images, videos, and facts in one simple place. It gives students and space fans an easy way to explore NASA-inspired media without needing to search across multiple sites.
+
+## Overview
+
+NASA Space Explorer showcases space media inspired by NASA's Astronomy Picture of the Day (APOD). It pulls APOD-style JSON data, renders a responsive gallery of images and videos, and opens each item in a detail modal for a richer viewing experience.
 
 ## Highlights
 
@@ -14,26 +18,18 @@ NASA Space Explorer is a front-end web app that showcases space media inspired b
 - Random "Did You Know?" facts loaded from local JSON
 - Responsive layout for desktop and mobile
 
-## Tech Stack
+## How to Obtain and Run the Project
 
-- HTML
-- CSS
-- Vanilla JavaScript (no framework)
-
-## Data Sources
-
-- APOD-style media feed:
-	https://cdn.jsdelivr.net/gh/GCA-Classroom/apod/data.json
-- Space facts:
-	data/facts.json
-
-## Getting Started
-
-Because this project fetches local JSON files, run it with a local web server (instead of opening `index.html` directly).
+1. Clone the repository from GitHub.
+	```bash
+	git clone https://github.com/your-username/nasa-space-explorer.git
+	```
+2. Open the project folder in VS Code or your preferred editor.
+3. Run the app with a local web server so the JSON files load correctly.
 
 ### Option 1: VS Code Live Server
 
-1. Install the Live Server extension (if needed).
+1. Install the Live Server extension if needed.
 2. Open `index.html`.
 3. Click "Go Live".
 
@@ -50,6 +46,23 @@ Then open:
 ```text
 http://localhost:5500
 ```
+
+## Tech Stack
+
+- HTML
+- CSS
+- Vanilla JavaScript (no framework)
+
+## Data Sources
+
+- APOD-style media feed:
+	https://cdn.jsdelivr.net/gh/GCA-Classroom/apod/data.json
+- Space facts:
+	data/facts.json
+
+## Getting Started
+
+Because this project fetches local JSON files, run it with a local web server instead of opening `index.html` directly.
 
 ## Project Structure
 
@@ -84,8 +97,21 @@ http://localhost:5500
 - Media content comes from an external APOD-style feed and may change over time.
 - Some video URLs are hosted on third-party platforms (for example, YouTube).
 
+## Feedback and Bug Reports
+
+Use GitHub Issues to report bugs, request features, or share suggestions. For major changes, open an issue first so the discussion stays in one place.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow and project expectations.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for the private reporting process.
+
 ## License
 
-This project is intended for educational and portfolio use. If you plan to distribute it publicly, review media licensing and attribution requirements for third-party content.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for the full text.
+
 
 
