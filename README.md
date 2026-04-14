@@ -1,6 +1,6 @@
 # NASA Space Explorer
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/GCA-Classroom/09-nasa-space-explorer-v2/badge)](https://scorecard.dev/viewer/?uri=github.com/GCA-Classroom/09-nasa-space-explorer-v2)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/printthis556/NASA-EXPLORER-APP/badge)](https://scorecard.dev/viewer/?uri=github.com/printthis556/NASA-EXPLORER-APP)
 [OpenSSF Best Practices Badge]
 
 NASA Space Explorer is a front-end web app that showcases space media inspired by NASA's Astronomy Picture of the Day (APOD). It pulls APOD-style JSON data, renders a responsive gallery of images and videos, and opens each item in a detail modal for a richer viewing experience.
